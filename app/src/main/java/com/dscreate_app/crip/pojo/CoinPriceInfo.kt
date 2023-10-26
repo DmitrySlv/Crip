@@ -1,7 +1,10 @@
 package com.dscreate_app.crip.pojo
 
+import android.util.TimeUtils
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dscreate_app.crip.api.ApiFactory.BASE_IMAGE_URL
+import com.dscreate_app.crip.utils.convertTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -196,4 +199,12 @@ data class CoinPriceInfo(
     @SerializedName("IMAGEURL")
     @Expose
     val imageUrl: String? = null
-)
+) {
+    fun getFormattedTime(): String {
+        return convertTime(lastUpdate?.toLong())
+    }
+
+    fun getFullImageUrl(): String {
+       return BASE_IMAGE_URL + imageUrl
+    }
+}
