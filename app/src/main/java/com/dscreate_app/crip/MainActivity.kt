@@ -3,6 +3,7 @@ package com.dscreate_app.crip
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.dscreate_app.crip.api.ApiFactory
 import com.dscreate_app.crip.databinding.ActivityMainBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,19 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val compositeDisposable = CompositeDisposable()
+    private val viewModel: CoinViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-       val disposable =  ApiFactory.apiService.getFullPriceList(fSyms = "BTC,ETH,EOS")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                       Log.d("MyLog", it.toString())
-            }, {
-                Log.d("MyLog", it.message.toString())
-            })
-        compositeDisposable.add(disposable)
+        viewModel.loadData()
+        viewModel.priceList.observe(this) {
+            Log.d("MyLog", "Success in activity: $it")
+        }
     }
 
     override fun onDestroy() {
