@@ -1,7 +1,6 @@
 package com.dscreate_app.crip
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,15 +22,19 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private fun init() = with(binding) {
         adapter = CoinInfoAdapter()
+        adapter.onClickListener = object : CoinInfoAdapter.OnClickListener {
+            override fun onClick(coinPrice: CoinPriceInfo) {
+                val intent = CoinDetailActivity.newIntent(
+                    this@CoinPriceListActivity, coinPrice.fromSymbol
+                )
+                startActivity(intent)
+            }
+        }
         rvCoinPriceList.layoutManager = LinearLayoutManager(this@CoinPriceListActivity)
         rvCoinPriceList.adapter = adapter
         viewModel.priceList.observe(this@CoinPriceListActivity) {
            adapter.submitList(it)
         }
-        adapter.onClickListener = object : CoinInfoAdapter.OnClickListener {
-            override fun onClick(coinPrice: CoinPriceInfo) {
-                Log.d("MyLog", coinPrice.fromSymbol)
-            }
-        }
+
     }
 }
