@@ -3,6 +3,7 @@ package com.dscreate_app.crip
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.dscreate_app.crip.api.ApiFactory
 import com.dscreate_app.crip.database.AppDatabase
 import com.dscreate_app.crip.pojo.CoinPriceInfo
@@ -10,6 +11,7 @@ import com.dscreate_app.crip.pojo.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class CoinViewModel(
    application: Application
@@ -19,12 +21,22 @@ class CoinViewModel(
     val priceList = db.dao().getPriceList()
     private val compositeDisposable = CompositeDisposable()
 
-    fun loadData() {
+    init {
+        loadData()
+    }
+
+    fun getDetailInfo(fSym: String): LiveData<CoinPriceInfo> {
+        return db.dao().getPriceInfoAboutCoin(fSym)
+    }
+
+   private fun loadData() {
         val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 50)
             .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it) }
             .map { getPriceListFromRawData(it) }
-
+            .delaySubscription(10, TimeUnit.SECONDS)
+            .repeat()
+            .retry()
             .subscribeOn(Schedulers.io())
             .subscribe( {
                 db.dao().insertPriceList(it)

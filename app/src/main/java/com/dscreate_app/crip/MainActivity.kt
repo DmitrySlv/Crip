@@ -19,8 +19,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        viewModel.loadData()
         viewModel.priceList.observe(this) {
+            Log.d("MyLog", "Success in activity: $it")
+        }
+        viewModel.getDetailInfo("BTC").observe(this) {
             Log.d("MyLog", "Success in activity: $it")
         }
     }
