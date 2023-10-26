@@ -40,9 +40,7 @@ class CoinViewModel(
             .subscribeOn(Schedulers.io())
             .subscribe( {
                 db.dao().insertPriceList(it)
-                Log.d("MyLog", "Success: $it")
             }, {
-                Log.d("MyLog", "Failure: ${it.message}")
             })
         compositeDisposable.add(disposable)
     }
