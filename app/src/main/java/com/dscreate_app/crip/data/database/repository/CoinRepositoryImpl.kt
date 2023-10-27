@@ -1,6 +1,7 @@
 package com.dscreate_app.crip.data.database.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.dscreate_app.crip.data.database.AppDatabase
@@ -43,6 +44,7 @@ class CoinRepositoryImpl(
                 dao.insertPriceList(dbModelList)
                 delay(10000)
             } catch (e: Exception) {
+                Log.d("MyLog", e.message.toString())
             }
         }
     }
