@@ -1,10 +1,10 @@
-package com.dscreate_app.crip.database
+package com.dscreate_app.crip.data.database
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dscreate_app.crip.pojo.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfo
 
 @Database(entities = [CoinPriceInfo::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {

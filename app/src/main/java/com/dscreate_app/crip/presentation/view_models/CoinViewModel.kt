@@ -1,13 +1,12 @@
-package com.dscreate_app.crip
+package com.dscreate_app.crip.presentation.view_models
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.dscreate_app.crip.api.ApiFactory
-import com.dscreate_app.crip.database.AppDatabase
-import com.dscreate_app.crip.pojo.CoinPriceInfo
-import com.dscreate_app.crip.pojo.CoinPriceInfoRawData
+import com.dscreate_app.crip.data.network.ApiFactory
+import com.dscreate_app.crip.data.database.AppDatabase
+import com.dscreate_app.crip.data.models.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -18,15 +17,16 @@ class CoinViewModel(
 ): AndroidViewModel(application) {
 
     private val db = AppDatabase.getDatabase(application)
-    val priceList = db.dao().getPriceList()
     private val compositeDisposable = CompositeDisposable()
 
-    init {
-        loadData()
-    }
+    val priceList = db.dao().getPriceList()
 
     fun getDetailInfo(fSym: String): LiveData<CoinPriceInfo> {
         return db.dao().getPriceInfoAboutCoin(fSym)
+    }
+
+    init {
+        loadData()
     }
 
    private fun loadData() {

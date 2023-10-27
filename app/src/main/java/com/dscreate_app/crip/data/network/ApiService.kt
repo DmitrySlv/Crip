@@ -1,7 +1,7 @@
-package com.dscreate_app.crip.api
+package com.dscreate_app.crip.data.network
 
-import com.dscreate_app.crip.pojo.CoinInfoListOfData
-import com.dscreate_app.crip.pojo.CoinPriceInfoRawData
+import com.dscreate_app.crip.data.models.CoinInfoListOfData
+import com.dscreate_app.crip.data.models.CoinPriceInfoRawData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

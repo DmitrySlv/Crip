@@ -1,4 +1,4 @@
-package com.dscreate_app.crip.pojo
+package com.dscreate_app.crip.data.models
 
 import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose

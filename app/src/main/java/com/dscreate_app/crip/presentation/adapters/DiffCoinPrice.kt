@@ -1,7 +1,7 @@
-package com.dscreate_app.crip.adapters
+package com.dscreate_app.crip.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.dscreate_app.crip.pojo.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfo
 
 object DiffCoinPrice: DiffUtil.ItemCallback<CoinPriceInfo>() {
 

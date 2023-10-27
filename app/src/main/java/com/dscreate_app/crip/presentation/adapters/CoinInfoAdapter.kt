@@ -1,4 +1,4 @@
-package com.dscreate_app.crip.adapters
+package com.dscreate_app.crip.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dscreate_app.crip.R
 import com.dscreate_app.crip.databinding.ItemCoinInfoBinding
-import com.dscreate_app.crip.pojo.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter: ListAdapter<CoinPriceInfo, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {

@@ -1,11 +1,11 @@
-package com.dscreate_app.crip.database
+package com.dscreate_app.crip.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dscreate_app.crip.pojo.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfo
 
 @Dao
 interface CoinDao {

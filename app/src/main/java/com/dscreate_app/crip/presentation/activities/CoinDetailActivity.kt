@@ -1,11 +1,11 @@
-package com.dscreate_app.crip
+package com.dscreate_app.crip.presentation.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.dscreate_app.crip.presentation.view_models.CoinViewModel
 import com.dscreate_app.crip.databinding.ActivityCoinDetailBinding
 import com.squareup.picasso.Picasso
 

@@ -1,12 +1,13 @@
-package com.dscreate_app.crip
+package com.dscreate_app.crip.presentation.activities
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dscreate_app.crip.adapters.CoinInfoAdapter
+import com.dscreate_app.crip.presentation.view_models.CoinViewModel
+import com.dscreate_app.crip.presentation.adapters.CoinInfoAdapter
 import com.dscreate_app.crip.databinding.ActivityCoinPriceListBinding
-import com.dscreate_app.crip.pojo.CoinPriceInfo
+import com.dscreate_app.crip.data.models.CoinPriceInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
 
