@@ -10,7 +10,7 @@ import com.dscreate_app.crip.domain.CoinInfoEntity
 import com.dscreate_app.crip.domain.CoinRepository
 import kotlinx.coroutines.delay
 
-class CoinInfoRepositoryImpl(
+class CoinRepositoryImpl(
     application: Application
 ): CoinRepository {
 
@@ -34,13 +34,16 @@ class CoinInfoRepositoryImpl(
 
     override suspend fun loadData() {
         while (true) {
-            val topCoins = apiService.getTopCoinsInfo(limit = 50)
-            val fSyms = mapper.mapNamesListDtoToString(topCoins)
-            val jsonContainer = apiService.getFullPriceList(fSyms = fSyms)
-            val coinInfoDtoList = mapper.mapJsonContainerToListDto(jsonContainer)
-            val dbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
-            dao.insertPriceList(dbModelList)
-            delay(10000)
+            try {
+                val topCoins = apiService.getTopCoinsInfo(limit = 50)
+                val fSyms = mapper.mapNamesListDtoToString(topCoins)
+                val jsonContainer = apiService.getFullPriceList(fSyms = fSyms)
+                val coinInfoDtoList = mapper.mapJsonContainerToListDto(jsonContainer)
+                val dbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
+                dao.insertPriceList(dbModelList)
+                delay(10000)
+            } catch (e: Exception) {
+            }
         }
     }
 }

@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dscreate_app.crip.R
+import com.dscreate_app.crip.data.network.ApiFactory
 import com.dscreate_app.crip.databinding.ItemCoinInfoBinding
 import com.dscreate_app.crip.data.network.models.CoinInfoDto
+import com.dscreate_app.crip.domain.CoinInfoEntity
+import com.dscreate_app.crip.presentation.utils.convertTime
 import com.squareup.picasso.Picasso
 
-class CoinInfoAdapter: ListAdapter<CoinInfoDto, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {
+class CoinInfoAdapter: ListAdapter<CoinInfoEntity, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {
 
     var onClickListener: OnClickListener? = null
 
@@ -27,14 +30,14 @@ class CoinInfoAdapter: ListAdapter<CoinInfoDto, CoinInfoAdapter.ViewHolder>(Diff
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
        private val binding = ItemCoinInfoBinding.bind(view)
 
-        fun setData(coinPrice: CoinInfoDto, onCoinClickListener: OnClickListener) = with(binding) {
+        fun setData(coinPrice: CoinInfoEntity, onCoinClickListener: OnClickListener) = with(binding) {
             coinPrice.apply {
                 val symbolsTemplate = root.context.getString(R.string.symbols_template)
                 val lastUpdateTemplate = root.context.getString(R.string.last_update_template)
                 tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                 tvPrice.text = price
-                tvLastUpdate.text = String.format(lastUpdateTemplate, getFormattedTime())
-                Picasso.get().load(getFullImageUrl()).into(imLogoCoin)
+                tvLastUpdate.text = String.format(lastUpdateTemplate, convertTime(lastUpdate.toLong()))
+                Picasso.get().load(ApiFactory.BASE_IMAGE_URL + imageUrl).into(imLogoCoin)
 
                 itemView.setOnClickListener {
                     onCoinClickListener.onClick(coinPrice)
@@ -44,6 +47,6 @@ class CoinInfoAdapter: ListAdapter<CoinInfoDto, CoinInfoAdapter.ViewHolder>(Diff
     }
 
     interface OnClickListener {
-        fun onClick(coinPrice: CoinInfoDto)
+        fun onClick(coinPrice: CoinInfoEntity)
     }
 }

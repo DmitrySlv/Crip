@@ -53,13 +53,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2"
     implementation "androidx.fragment:fragment-ktx:1.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2."
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
     kapt "androidx.lifecycle:lifecycle-compiler:2.6.2"
 
     //Room
     implementation "androidx.room:room-runtime:2.6.0"
+    implementation "androidx.room:room-ktx:2.6.0"
     kapt "androidx.room:room-compiler:2.6.0"
-    implementation "androidx.room:room-rxjava2:2.6.0"
 
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'androidx.work:work-runtime-ktx:2.8.1'

@@ -1,8 +1,7 @@
 package com.dscreate_app.crip.data.network
 
-import com.dscreate_app.crip.data.network.models.CoinNamesListDto
 import com.dscreate_app.crip.data.network.models.CoinInfoJsonContainerDto
-import io.reactivex.Single
+import com.dscreate_app.crip.data.network.models.CoinNamesListDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

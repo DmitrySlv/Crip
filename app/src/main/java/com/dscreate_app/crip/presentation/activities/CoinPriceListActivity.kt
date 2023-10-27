@@ -8,6 +8,7 @@ import com.dscreate_app.crip.presentation.view_models.CoinViewModel
 import com.dscreate_app.crip.presentation.adapters.CoinInfoAdapter
 import com.dscreate_app.crip.databinding.ActivityCoinPriceListBinding
 import com.dscreate_app.crip.data.network.models.CoinInfoDto
+import com.dscreate_app.crip.domain.CoinInfoEntity
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     private fun init() = with(binding) {
         adapter = CoinInfoAdapter()
         adapter.onClickListener = object : CoinInfoAdapter.OnClickListener {
-            override fun onClick(coinPrice: CoinInfoDto) {
+            override fun onClick(coinPrice: CoinInfoEntity) {
                 val intent = CoinDetailActivity.newIntent(
                     this@CoinPriceListActivity, coinPrice.fromSymbol
                 )
@@ -33,7 +34,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         }
         rvCoinPriceList.layoutManager = LinearLayoutManager(this@CoinPriceListActivity)
         rvCoinPriceList.adapter = adapter
-        viewModel.priceList.observe(this@CoinPriceListActivity) {
+        viewModel.coinInfoList.observe(this@CoinPriceListActivity) {
            adapter.submitList(it)
         }
 

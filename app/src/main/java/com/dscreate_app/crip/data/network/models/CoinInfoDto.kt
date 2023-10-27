@@ -2,8 +2,6 @@ package com.dscreate_app.crip.data.network.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.dscreate_app.crip.data.network.ApiFactory.BASE_IMAGE_URL
-import com.dscreate_app.crip.presentation.utils.convertTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -41,12 +39,4 @@ data class CoinInfoDto(
     @SerializedName("IMAGEURL")
     @Expose
     val imageUrl: String
-) {
-    fun getFormattedTime(): String {
-        return convertTime(lastUpdate.toLong())
-    }
-
-    fun getFullImageUrl(): String {
-       return BASE_IMAGE_URL + imageUrl
-    }
-}
+)
