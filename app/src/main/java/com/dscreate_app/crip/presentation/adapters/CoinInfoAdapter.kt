@@ -1,16 +1,12 @@
 package com.dscreate_app.crip.presentation.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dscreate_app.crip.R
-import com.dscreate_app.crip.data.network.ApiFactory
 import com.dscreate_app.crip.databinding.ItemCoinInfoBinding
-import com.dscreate_app.crip.data.network.models.CoinInfoDto
 import com.dscreate_app.crip.domain.CoinInfoEntity
-import com.dscreate_app.crip.presentation.utils.convertTime
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter: ListAdapter<CoinInfoEntity, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {
@@ -18,17 +14,18 @@ class CoinInfoAdapter: ListAdapter<CoinInfoEntity, CoinInfoAdapter.ViewHolder>(D
     var onClickListener: OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_coin_info, parent, false)
-        return ViewHolder(view)
+        val binding = ItemCoinInfoBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         onClickListener?.let { holder.setData(getItem(position), it) }
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-       private val binding = ItemCoinInfoBinding.bind(view)
+    class ViewHolder(
+        private val binding: ItemCoinInfoBinding
+    ): RecyclerView.ViewHolder(binding.root) {
 
         fun setData(coinPrice: CoinInfoEntity, onCoinClickListener: OnClickListener) = with(binding) {
             coinPrice.apply {
@@ -36,8 +33,8 @@ class CoinInfoAdapter: ListAdapter<CoinInfoEntity, CoinInfoAdapter.ViewHolder>(D
                 val lastUpdateTemplate = root.context.getString(R.string.last_update_template)
                 tvSymbols.text = String.format(symbolsTemplate, fromSymbol, toSymbol)
                 tvPrice.text = price
-                tvLastUpdate.text = String.format(lastUpdateTemplate, convertTime(lastUpdate.toLong()))
-                Picasso.get().load(ApiFactory.BASE_IMAGE_URL + imageUrl).into(imLogoCoin)
+                tvLastUpdate.text = String.format(lastUpdateTemplate, lastUpdate)
+                Picasso.get().load(imageUrl).into(imLogoCoin)
 
                 itemView.setOnClickListener {
                     onCoinClickListener.onClick(coinPrice)

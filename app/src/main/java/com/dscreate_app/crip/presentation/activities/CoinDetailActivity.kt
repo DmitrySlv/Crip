@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dscreate_app.crip.data.network.ApiFactory
-import com.dscreate_app.crip.presentation.view_models.CoinViewModel
 import com.dscreate_app.crip.databinding.ActivityCoinDetailBinding
-import com.dscreate_app.crip.presentation.utils.convertTime
+import com.dscreate_app.crip.presentation.view_models.CoinViewModel
 import com.squareup.picasso.Picasso
 
 class CoinDetailActivity : AppCompatActivity() {
@@ -30,10 +28,10 @@ class CoinDetailActivity : AppCompatActivity() {
                    tvMinPrice.text = it.lowDay.toString()
                    tvMaxPrice.text = it.highDay.toString()
                    tvLastMarket.text = it.lastMarket
-                   tvLastUpdate.text = convertTime(it.lastUpdate.toLong())
+                   tvLastUpdate.text = it.lastUpdate
                    tvFromSymbol.text = it.fromSymbol
                    tvToSymbol.text = it.toSymbol
-                   Picasso.get().load(ApiFactory.BASE_IMAGE_URL + it.imageUrl).into(imLogoCoin)
+                   Picasso.get().load( it.imageUrl).into(imLogoCoin)
             }
         }
     }
