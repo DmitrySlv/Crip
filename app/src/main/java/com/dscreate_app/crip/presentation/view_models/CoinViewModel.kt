@@ -2,14 +2,10 @@ package com.dscreate_app.crip.presentation.view_models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
 import com.dscreate_app.crip.data.database.repository.CoinRepositoryImpl
-import com.dscreate_app.crip.data.network.models.CoinInfoDto
 import com.dscreate_app.crip.domain.usecases.GetCoinInfoListUseCase
 import com.dscreate_app.crip.domain.usecases.GetCoinInfoUseCase
 import com.dscreate_app.crip.domain.usecases.LoadDataUseCase
-import kotlinx.coroutines.launch
 
 class CoinViewModel(
    application: Application
@@ -25,8 +21,6 @@ class CoinViewModel(
     fun getDetailInfo(fSym: String) = getCoinInfoUseCase(fSym)
 
     init {
-        viewModelScope.launch {
             loadDataUseCase()
-        }
     }
 }
