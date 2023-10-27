@@ -18,4 +18,5 @@ interface CoinDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPriceList(priceList: List<CoinInfoDbModel>)
+
 }
