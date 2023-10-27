@@ -1,7 +1,7 @@
 package com.dscreate_app.crip.data.network
 
-import com.dscreate_app.crip.data.models.CoinInfoListOfData
-import com.dscreate_app.crip.data.models.CoinPriceInfoRawData
+import com.dscreate_app.crip.data.network.models.CoinNamesListDto
+import com.dscreate_app.crip.data.network.models.CoinInfoJsonContainerDto
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -9,18 +9,18 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("top/totalvolfull")
-    fun getTopCoinsInfo(
+   suspend fun getTopCoinsInfo(
         @Query(API_KEY) apiKey: String = API_KEY_DEF,
         @Query(QUERY_PARAM_LIMIT) limit: Int = LIMIT,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY
-    ): Single<CoinInfoListOfData>
+    ): CoinNamesListDto
 
     @GET("pricemultifull")
-    fun getFullPriceList(
+    suspend fun getFullPriceList(
         @Query(API_KEY) apiKey: String = API_KEY_DEF,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY,
-        @Query(QUERY_PARAM_FROM_SYMBOLS) fSyms: String?
-    ): Single<CoinPriceInfoRawData>
+        @Query(QUERY_PARAM_FROM_SYMBOLS) fSyms: String
+    ): CoinInfoJsonContainerDto
 
     companion object {
         private const val API_KEY = "api_key"

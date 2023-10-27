@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.crip.presentation.view_models.CoinViewModel
 import com.dscreate_app.crip.presentation.adapters.CoinInfoAdapter
 import com.dscreate_app.crip.databinding.ActivityCoinPriceListBinding
-import com.dscreate_app.crip.data.models.CoinPriceInfo
+import com.dscreate_app.crip.data.network.models.CoinInfoDto
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -24,7 +24,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     private fun init() = with(binding) {
         adapter = CoinInfoAdapter()
         adapter.onClickListener = object : CoinInfoAdapter.OnClickListener {
-            override fun onClick(coinPrice: CoinPriceInfo) {
+            override fun onClick(coinPrice: CoinInfoDto) {
                 val intent = CoinDetailActivity.newIntent(
                     this@CoinPriceListActivity, coinPrice.fromSymbol
                 )

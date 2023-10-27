@@ -1,4 +1,4 @@
-package com.dscreate_app.crip.data.models
+package com.dscreate_app.crip.data.network.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+data class CoinInfoDto(
     @PrimaryKey
     @SerializedName("FROMSYMBOL")
     @Expose
@@ -16,34 +16,34 @@ data class CoinPriceInfo(
 
     @SerializedName("TOSYMBOL")
     @Expose
-    val toSymbol: String? = null,
+    val toSymbol: String,
 
     @SerializedName("PRICE")
     @Expose
-    val price: String? = null,
+    val price: String,
 
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastUpdate: Int? = null,
+    val lastUpdate: Int,
 
     @SerializedName("HIGHDAY")
     @Expose
-    val highDay: Double? = null,
+    val highDay: Double,
 
     @SerializedName("LOWDAY")
     @Expose
-    val lowDay: Double? = null,
+    val lowDay: Double,
 
     @SerializedName("LASTMARKET")
     @Expose
-    val lastMarket: String? = null,
+    val lastMarket: String,
 
     @SerializedName("IMAGEURL")
     @Expose
-    val imageUrl: String? = null
+    val imageUrl: String
 ) {
     fun getFormattedTime(): String {
-        return convertTime(lastUpdate?.toLong())
+        return convertTime(lastUpdate.toLong())
     }
 
     fun getFullImageUrl(): String {

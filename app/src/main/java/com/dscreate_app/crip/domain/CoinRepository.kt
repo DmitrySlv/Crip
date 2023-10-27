@@ -7,4 +7,6 @@ interface CoinRepository {
     fun getCoinInfoList(): LiveData<List<CoinInfoEntity>>
 
     fun getCoinInfo(fSym: String): LiveData<CoinInfoEntity>
+
+    suspend fun loadData()
 }

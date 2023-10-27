@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dscreate_app.crip.R
 import com.dscreate_app.crip.databinding.ItemCoinInfoBinding
-import com.dscreate_app.crip.data.models.CoinPriceInfo
+import com.dscreate_app.crip.data.network.models.CoinInfoDto
 import com.squareup.picasso.Picasso
 
-class CoinInfoAdapter: ListAdapter<CoinPriceInfo, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {
+class CoinInfoAdapter: ListAdapter<CoinInfoDto, CoinInfoAdapter.ViewHolder>(DiffCoinPrice) {
 
     var onClickListener: OnClickListener? = null
 
@@ -27,7 +27,7 @@ class CoinInfoAdapter: ListAdapter<CoinPriceInfo, CoinInfoAdapter.ViewHolder>(Di
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
        private val binding = ItemCoinInfoBinding.bind(view)
 
-        fun setData(coinPrice: CoinPriceInfo, onCoinClickListener: OnClickListener) = with(binding) {
+        fun setData(coinPrice: CoinInfoDto, onCoinClickListener: OnClickListener) = with(binding) {
             coinPrice.apply {
                 val symbolsTemplate = root.context.getString(R.string.symbols_template)
                 val lastUpdateTemplate = root.context.getString(R.string.last_update_template)
@@ -44,6 +44,6 @@ class CoinInfoAdapter: ListAdapter<CoinPriceInfo, CoinInfoAdapter.ViewHolder>(Di
     }
 
     interface OnClickListener {
-        fun onClick(coinPrice: CoinPriceInfo)
+        fun onClick(coinPrice: CoinInfoDto)
     }
 }

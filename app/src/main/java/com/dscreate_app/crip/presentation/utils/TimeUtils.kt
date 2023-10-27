@@ -6,8 +6,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-fun convertTime(timestamp: Long?): String {
-    if (timestamp == null) return ""
+fun convertTime(timestamp: Long): String {
     val stamp = Timestamp(timestamp * 1000)
     val date = Date(stamp.time)
     val pattern = "HH:mm:ss"

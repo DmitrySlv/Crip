@@ -1,10 +1,10 @@
-package com.dscreate_app.crip.data.models
+package com.dscreate_app.crip.data.network.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class CoinInfoListOfData(
+data class CoinNamesListDto(
     @SerializedName("Data")
     @Expose
-    val data: List<Datum>? = null
+    val coinsNames: List<CoinNameContainerDto>? = null
 )

@@ -1,15 +1,15 @@
 package com.dscreate_app.crip.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
-import com.dscreate_app.crip.data.models.CoinPriceInfo
+import com.dscreate_app.crip.data.network.models.CoinInfoDto
 
-object DiffCoinPrice: DiffUtil.ItemCallback<CoinPriceInfo>() {
+object DiffCoinPrice: DiffUtil.ItemCallback<CoinInfoDto>() {
 
-    override fun areItemsTheSame(oldItem: CoinPriceInfo, newItem: CoinPriceInfo): Boolean {
+    override fun areItemsTheSame(oldItem: CoinInfoDto, newItem: CoinInfoDto): Boolean {
         return oldItem.fromSymbol == newItem.fromSymbol
     }
 
-    override fun areContentsTheSame(oldItem: CoinPriceInfo, newItem: CoinPriceInfo): Boolean {
+    override fun areContentsTheSame(oldItem: CoinInfoDto, newItem: CoinInfoDto): Boolean {
         return oldItem == newItem
     }
 }
