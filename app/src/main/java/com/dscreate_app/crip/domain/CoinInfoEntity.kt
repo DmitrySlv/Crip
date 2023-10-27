@@ -7,5 +7,6 @@ data class CoinInfoEntity(
     val lastUpdate: Int,
     val highDay: Double,
     val lowDay: Double,
+    val lastMarket: String,
     val imageUrl: String
 )

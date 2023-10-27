@@ -34,6 +34,10 @@ data class CoinPriceInfo(
     @Expose
     val lowDay: Double? = null,
 
+    @SerializedName("LASTMARKET")
+    @Expose
+    val lastMarket: String? = null,
+
     @SerializedName("IMAGEURL")
     @Expose
     val imageUrl: String? = null
