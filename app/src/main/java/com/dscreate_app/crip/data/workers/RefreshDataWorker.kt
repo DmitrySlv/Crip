@@ -17,7 +17,7 @@ class RefreshDataWorker(
     workerParameters: WorkerParameters
 ): CoroutineWorker(context, workerParameters) {
 
-    private val dao = AppDatabase.getDatabase(context as Application).dao()
+    private val dao = AppDatabase.getInstance(context as Application).dao()
     private val mapper = CoinMapper()
     private val apiService = ApiFactory.apiService
 
