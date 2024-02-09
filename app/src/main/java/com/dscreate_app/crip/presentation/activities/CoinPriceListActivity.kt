@@ -17,7 +17,10 @@ import javax.inject.Inject
 class CoinPriceListActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityCoinPriceListBinding.inflate(layoutInflater) }
-    private lateinit var viewModel: CoinViewModel
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -38,9 +41,6 @@ class CoinPriceListActivity : AppCompatActivity() {
         rvCoinPriceList.layoutManager = LinearLayoutManager(this@CoinPriceListActivity)
         rvCoinPriceList.adapter = adapter
         rvCoinPriceList.itemAnimator = null
-        viewModel = ViewModelProvider(
-            this@CoinPriceListActivity, viewModelFactory
-        )[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this@CoinPriceListActivity) {
            adapter.submitList(it)
         }

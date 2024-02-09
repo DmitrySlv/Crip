@@ -20,7 +20,9 @@ class CoinDetailFragment : Fragment() {
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding is null")
 
-    private lateinit var viewModel: CoinViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -46,7 +48,6 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fromSymbol = getSymbol()
-        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         viewModel.getDetailInfo(fromSymbol).observe(viewLifecycleOwner) {
             binding.apply {
                 tvPrice.text = it.price
