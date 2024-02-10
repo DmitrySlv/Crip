@@ -3,6 +3,7 @@ package com.dscreate_app.crip.data.workers
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
+import androidx.work.ListenableWorker
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
@@ -10,6 +11,7 @@ import com.dscreate_app.crip.data.database.CoinDao
 import com.dscreate_app.crip.data.mapper.CoinMapper
 import com.dscreate_app.crip.data.network.ApiService
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
 class RefreshDataWorker(
     context: Context,
@@ -40,6 +42,26 @@ class RefreshDataWorker(
 
         fun workRequest(): OneTimeWorkRequest {
             return OneTimeWorkRequestBuilder<RefreshDataWorker>().build()
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val coinDao: CoinDao,
+        private val apiService: ApiService,
+        private val mapper: CoinMapper
+    ): ChildWorkerFactory {
+
+        override fun create(
+            context: Context,
+            workerParameters: WorkerParameters
+        ): ListenableWorker {
+           return RefreshDataWorker(
+               context,
+               workerParameters,
+               coinDao,
+               apiService,
+               mapper
+           )
         }
     }
 }
