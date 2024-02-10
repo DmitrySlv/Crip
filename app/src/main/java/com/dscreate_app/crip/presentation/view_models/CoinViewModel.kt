@@ -1,20 +1,16 @@
 package com.dscreate_app.crip.presentation.view_models
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import com.dscreate_app.crip.data.database.repository.CoinRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.dscreate_app.crip.domain.usecases.GetCoinInfoListUseCase
 import com.dscreate_app.crip.domain.usecases.GetCoinInfoUseCase
 import com.dscreate_app.crip.domain.usecases.LoadDataUseCase
+import javax.inject.Inject
 
-class CoinViewModel(
-   application: Application
-): AndroidViewModel(application) {
-
-    private val repository = CoinRepositoryImpl(application)
-    private val getCoinInfoListUseCase = GetCoinInfoListUseCase(repository)
-    private val getCoinInfoUseCase = GetCoinInfoUseCase(repository)
-    private val loadDataUseCase = LoadDataUseCase(repository)
+class CoinViewModel @Inject constructor(
+    private val getCoinInfoListUseCase: GetCoinInfoListUseCase,
+    private val getCoinInfoUseCase: GetCoinInfoUseCase,
+    private val loadDataUseCase: LoadDataUseCase
+): ViewModel() {
 
     val coinInfoList = getCoinInfoListUseCase()
 

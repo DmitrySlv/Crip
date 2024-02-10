@@ -5,22 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
-import com.dscreate_app.crip.data.database.AppDatabase
+import com.dscreate_app.crip.data.database.CoinDao
 import com.dscreate_app.crip.data.mapper.CoinMapper
 import com.dscreate_app.crip.data.workers.RefreshDataWorker
 import com.dscreate_app.crip.domain.CoinInfoEntity
 import com.dscreate_app.crip.domain.CoinRepository
+import javax.inject.Inject
 
-class CoinRepositoryImpl(
-   private val application: Application
+class CoinRepositoryImpl @Inject constructor (
+   private val application: Application,
+   private val dao: CoinDao,
+   private val mapper: CoinMapper
 ): CoinRepository {
 
-    private val dao = AppDatabase.getDatabase(application).dao()
-    private val mapper = CoinMapper()
-
     override fun getCoinInfoList(): LiveData<List<CoinInfoEntity>> {
-        return dao.getPriceList().map {
-            it.map {
+        return dao.getPriceList().map { listDbModel ->
+            listDbModel.map {
                 mapper.mapDbModelToCoinEntity(it)
             }
         }

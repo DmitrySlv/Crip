@@ -1,31 +1,43 @@
 package com.dscreate_app.crip.presentation.activities
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.crip.R
-import com.dscreate_app.crip.presentation.view_models.CoinViewModel
-import com.dscreate_app.crip.presentation.adapters.CoinInfoAdapter
 import com.dscreate_app.crip.databinding.ActivityCoinPriceListBinding
-import com.dscreate_app.crip.data.network.models.CoinInfoDto
 import com.dscreate_app.crip.domain.CoinInfoEntity
+import com.dscreate_app.crip.presentation.CoinApp
+import com.dscreate_app.crip.presentation.adapters.CoinInfoAdapter
 import com.dscreate_app.crip.presentation.fragments.CoinDetailFragment
+import com.dscreate_app.crip.presentation.view_models.CoinViewModel
+import com.dscreate_app.crip.presentation.view_models.ViewModelFactory
+import javax.inject.Inject
 
 class CoinPriceListActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityCoinPriceListBinding.inflate(layoutInflater) }
-    private val viewModel: CoinViewModel by viewModels()
-    private lateinit var adapter: CoinInfoAdapter
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (application as CoinApp).component
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         init()
     }
 
     private fun init() = with(binding) {
-        adapter = CoinInfoAdapter()
+       val adapter = CoinInfoAdapter()
         rvCoinPriceList.layoutManager = LinearLayoutManager(this@CoinPriceListActivity)
         rvCoinPriceList.adapter = adapter
         rvCoinPriceList.itemAnimator = null
