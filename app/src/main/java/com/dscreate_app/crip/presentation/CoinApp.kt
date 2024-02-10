@@ -7,21 +7,24 @@ import com.dscreate_app.crip.data.mapper.CoinMapper
 import com.dscreate_app.crip.data.network.ApiFactory
 import com.dscreate_app.crip.data.workers.RefreshDataWorkerFactory
 import com.dscreate_app.crip.di.DaggerApplicationComponent
+import javax.inject.Inject
 
 class CoinApp: Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: RefreshDataWorkerFactory
 
     val component by lazy {
         DaggerApplicationComponent.factory().create(this)
     }
 
+    override fun onCreate() {
+        component.inject(this)
+        super.onCreate()
+    }
+
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
-            .setWorkerFactory(
-                RefreshDataWorkerFactory(
-                    AppDatabase.getInstance(this).dao(),
-                    ApiFactory.apiService,
-                    CoinMapper()
-                )
-            )
+            .setWorkerFactory(workerFactory)
             .build()
 }

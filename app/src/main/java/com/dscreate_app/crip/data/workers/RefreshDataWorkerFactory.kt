@@ -7,8 +7,9 @@ import androidx.work.WorkerParameters
 import com.dscreate_app.crip.data.database.CoinDao
 import com.dscreate_app.crip.data.mapper.CoinMapper
 import com.dscreate_app.crip.data.network.ApiService
+import javax.inject.Inject
 
-class RefreshDataWorkerFactory(
+class RefreshDataWorkerFactory @Inject constructor(
     private val coinDao: CoinDao,
     private val apiService: ApiService,
     private val mapper: CoinMapper
